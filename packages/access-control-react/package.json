@@ -1,0 +1,16 @@
+{
+  "name": "@behrouzan/access-control-react",
+  "version": "0.1.0",
+  "description": "React bindings for @behrouzan/access-control.",
+  "type": "module",
+  "private": true,
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "dependencies": {
+    "@behrouzan/access-control": "0.1.0"
+  },
+  "scripts": {
+    "test": "vitest run"
+  }
+}

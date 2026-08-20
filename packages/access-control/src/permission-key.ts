@@ -1,0 +1,1 @@
+export type PermissionKey = string | number;

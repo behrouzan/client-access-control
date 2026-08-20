@@ -1,0 +1,10 @@
+{
+  "name": "@behrouzan/access-control",
+  "version": "0.1.0",
+  "description": "Lightweight, backend-agnostic permission-based access control for TypeScript and JavaScript.",
+  "type": "module",
+  "private": true,
+    "scripts": {
+    "test": "vitest run"
+  }
+}
