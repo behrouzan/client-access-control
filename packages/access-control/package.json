@@ -3,8 +3,41 @@
   "version": "0.1.0",
   "description": "Lightweight, backend-agnostic permission-based access control for TypeScript and JavaScript.",
   "type": "module",
-  "private": true,
-    "scripts": {
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:js && npm run build:types",
+    "build:js": "tsup src/index.ts --format esm --clean",
+    "build:types": "tsc -p tsconfig.build.json",
     "test": "vitest run"
+  },
+  "keywords": [
+    "access-control",
+    "permissions",
+    "authorization",
+    "typescript",
+    "javascript",
+    "frontend"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behrouzan/client-access-control.git",
+    "directory": "packages/access-control"
+  },
+  "homepage": "https://github.com/behrouzan/client-access-control#readme",
+  "bugs": {
+    "url": "https://github.com/behrouzan/client-access-control/issues"
   }
 }

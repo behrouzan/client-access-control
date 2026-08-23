@@ -1,4 +1,4 @@
-import type { PermissionKey } from "./permission-key";
+import type { PermissionKey } from "./permission-key.js";
 
 export interface AccessControl<TPermission extends PermissionKey> {
   can(permission: TPermission): boolean;

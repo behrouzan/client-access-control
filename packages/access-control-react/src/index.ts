@@ -1,13 +1,11 @@
-export { AccessControlProvider } from "./access-control-context";
-
-export { useCan } from "./use-can";
-export { useCanAny } from "./use-can-any";
-export { useCanAll } from "./use-can-all";
-
-export { Can } from "./can";
+export { AccessControlProvider } from "./access-control-context.js";
+export { useCan } from "./use-can.js";
+export { useCanAny } from "./use-can-any.js";
+export { useCanAll } from "./use-can-all.js";
+export { Can } from "./can.js";
 
 export type {
   AccessControlProviderProps,
-} from "./access-control-context";
+} from "./access-control-context.js";
 
-export type { CanProps } from "./can";
+export type { CanProps } from "./can.js";

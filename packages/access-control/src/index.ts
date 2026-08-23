@@ -1,8 +1,8 @@
-export { createAccessControl } from "./access-control";
+export { createAccessControl } from "./access-control.js";
 
 export type {
   AccessControl,
   AccessControlOptions,
-} from "./access-control";
+} from "./access-control.js";
 
-export type { PermissionKey } from "./permission-key";
+export type { PermissionKey } from "./permission-key.js";

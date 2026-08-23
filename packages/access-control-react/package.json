@@ -3,7 +3,19 @@
   "version": "0.1.0",
   "description": "React bindings for @behrouzan/access-control.",
   "type": "module",
-  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "peerDependencies": {
     "react": ">=18"
   },
@@ -11,6 +23,27 @@
     "@behrouzan/access-control": "0.1.0"
   },
   "scripts": {
+    "build": "npm run build:js && npm run build:types",
+    "build:js": "tsup src/index.ts --format esm --clean --external react --external @behrouzan/access-control",
+    "build:types": "tsc -p tsconfig.build.json",
     "test": "vitest run"
+  },
+  "keywords": [
+    "react",
+    "access-control",
+    "permissions",
+    "authorization",
+    "typescript",
+    "frontend"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behrouzan/client-access-control.git",
+    "directory": "packages/access-control-react"
+  },
+  "homepage": "https://github.com/behrouzan/client-access-control#readme",
+  "bugs": {
+    "url": "https://github.com/behrouzan/client-access-control/issues"
   }
 }

@@ -13,7 +13,7 @@ describe("Can", () => {
   it("renders children when permission exists", () => {
     render(
       <AccessControlProvider permissions={["products.edit"]}>
-        <Can mode="single" permission="products.edit">
+        <Can permission="products.edit">
           <button>Edit</button>
         </Can>
       </AccessControlProvider>,
@@ -25,7 +25,7 @@ describe("Can", () => {
   it("does not render children when permission does not exist", () => {
     render(
       <AccessControlProvider permissions={["products.view"]}>
-        <Can mode="single" permission="products.edit">
+        <Can permission="products.edit">
           <button>Edit</button>
         </Can>
       </AccessControlProvider>,
@@ -37,11 +37,7 @@ describe("Can", () => {
   it("renders fallback when permission does not exist", () => {
     render(
       <AccessControlProvider permissions={["products.view"]}>
-        <Can
-          mode="single"
-          permission="products.edit"
-          fallback={<span>Not allowed</span>}
-        >
+        <Can permission="products.edit" fallback={<span>Not allowed</span>}>
           <button>Edit</button>
         </Can>
       </AccessControlProvider>,
@@ -54,7 +50,7 @@ describe("Can", () => {
   it("renders children when any permission exists", () => {
     render(
       <AccessControlProvider permissions={["products.edit"]}>
-        <Can mode="any" permissions={["products.edit", "products.delete"]}>
+        <Can match="any" permissions={["products.edit", "products.delete"]}>
           <button>Actions</button>
         </Can>
       </AccessControlProvider>,
@@ -66,7 +62,7 @@ describe("Can", () => {
   it("does not render children when no any permission exists", () => {
     render(
       <AccessControlProvider permissions={["products.view"]}>
-        <Can mode="any" permissions={["products.edit", "products.delete"]}>
+        <Can match="any" permissions={["products.edit", "products.delete"]}>
           <button>Actions</button>
         </Can>
       </AccessControlProvider>,
@@ -78,7 +74,7 @@ describe("Can", () => {
   it("renders children when all permissions exist", () => {
     render(
       <AccessControlProvider permissions={["products.view", "products.edit"]}>
-        <Can mode="all" permissions={["products.view", "products.edit"]}>
+        <Can match="all" permissions={["products.view", "products.edit"]}>
           <button>Edit</button>
         </Can>
       </AccessControlProvider>,
@@ -90,7 +86,7 @@ describe("Can", () => {
   it("does not render children when one required permission is missing", () => {
     render(
       <AccessControlProvider permissions={["products.view"]}>
-        <Can mode="all" permissions={["products.view", "products.edit"]}>
+        <Can match="all" permissions={["products.view", "products.edit"]}>
           <button>Edit</button>
         </Can>
       </AccessControlProvider>,

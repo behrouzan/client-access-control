@@ -3,33 +3,27 @@
 import type { ReactNode } from "react";
 import type { PermissionKey } from "@behrouzan/access-control";
 
-import { useAccessControl } from "./access-control-context";
+import { useAccessControl } from "./access-control-context.js";
 
 type SinglePermissionProps<TPermission extends PermissionKey> = {
-  mode: "single";
   permission: TPermission;
+  permissions?: never;
+  match?: never;
 };
 
-type AnyPermissionProps<TPermission extends PermissionKey> = {
-  mode: "any";
+type MultiplePermissionsProps<TPermission extends PermissionKey> = {
+  permission?: never;
   permissions: readonly TPermission[];
+  match: "any" | "all";
 };
 
-type AllPermissionProps<TPermission extends PermissionKey> = {
-  mode: "all";
-  permissions: readonly TPermission[];
-};
-
-type PermissionConditionProps<TPermission extends PermissionKey> =
+export type CanProps<TPermission extends PermissionKey> = (
   | SinglePermissionProps<TPermission>
-  | AnyPermissionProps<TPermission>
-  | AllPermissionProps<TPermission>;
-
-export type CanProps<TPermission extends PermissionKey> =
-  PermissionConditionProps<TPermission> & {
-    children: ReactNode;
-    fallback?: ReactNode;
-  };
+  | MultiplePermissionsProps<TPermission>
+) & {
+  children: ReactNode;
+  fallback?: ReactNode;
+};
 
 export function Can<TPermission extends PermissionKey>(
   props: CanProps<TPermission>,
@@ -40,18 +34,13 @@ export function Can<TPermission extends PermissionKey>(
 
   let allowed: boolean;
 
-  switch (props.mode) {
-    case "single":
-      allowed = access.can(props.permission);
-      break;
-
-    case "any":
-      allowed = access.canAny(props.permissions);
-      break;
-
-    case "all":
-      allowed = access.canAll(props.permissions);
-      break;
+  if (props.permissions !== undefined) {
+    allowed =
+      props.match === "any"
+        ? access.canAny(props.permissions)
+        : access.canAll(props.permissions);
+  } else {
+    allowed = access.can(props.permission);
   }
 
   return allowed ? children : fallback;
