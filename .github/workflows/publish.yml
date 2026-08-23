@@ -37,8 +37,38 @@ jobs:
       - name: Build React package
         run: npm run build --workspace=@behrouzan/access-control-react
 
+      - name: Check core version
+        id: core
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./packages/access-control/package.json').version")
+
+          if npm view @behrouzan/access-control@$VERSION version > /dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "Core version $VERSION already exists."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "Core version $VERSION will be published."
+          fi
+
       - name: Publish core
+        if: steps.core.outputs.publish == 'true'
         run: npm publish --workspace=@behrouzan/access-control --access public
 
+      - name: Check React version
+        id: react
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./packages/access-control-react/package.json').version")
+
+          if npm view @behrouzan/access-control-react@$VERSION version > /dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "React version $VERSION already exists."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "React version $VERSION will be published."
+          fi
+
       - name: Publish React package
+        if: steps.react.outputs.publish == 'true'
         run: npm publish --workspace=@behrouzan/access-control-react --access public
